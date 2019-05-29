@@ -1,20 +1,14 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import classnames from 'classnames'
+import TodoInput from './TodoInput'
 import { completeTodo, editTodo, deleteTodo } from '../actions'
 
 export default function TodoItem({ todo }) {
-  const [text, setText] = useState(todo.text)
   const [editing, setEditing] = useState(false)
   const dispatch = useDispatch()
 
-  function handleKeyDown(e) {
-    if (e.which === 13) {
-      handleBlur()
-    }
-  }
-
-  function handleBlur() {
+  function handleSubmit(text) {
     dispatch(editTodo(todo.id, text))
     setEditing(false)
   }
@@ -28,15 +22,7 @@ export default function TodoItem({ todo }) {
           onChange={e => dispatch(completeTodo(todo.id))}
         />
         {editing ? (
-          <input
-            autoFocus
-            type="text"
-            className="todo-item-edit"
-            value={text}
-            onChange={e => setText(e.target.value.trim())}
-            onKeyDown={handleKeyDown}
-            onBlur={handleBlur}
-          />
+          <TodoInput autoFocus text={todo.text} onSubmit={handleSubmit} />
         ) : (
           <div
             className={classnames('todo-item-label', {

@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import TodoList from './components/TodoList'
+import App from './App'
 import store from './store'
 import './index.scss'
 import { STORAGE_KEY } from './constants'
@@ -12,7 +12,7 @@ store.subscribe(() => {
 
 ReactDOM.render(
   <Provider store={store}>
-    <TodoList />
+    <App />
   </Provider>,
   document.getElementById('root')
 )
